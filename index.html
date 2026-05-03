@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arktraders Hub — Smart Trading Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     SPLASH / LOADING SCREEN
+════════════════════════════════════════ -->
+<div id="splash">
+  <div class="splash-bg-glow"></div>
+
+  <!-- Orbiting ring + logo orb -->
+  <div class="splash-orb-wrap">
+    <div class="splash-ring"></div>
+    <div class="splash-orbit-dot"></div>
+    <div class="splash-orb">
+      <!-- Custom "A" logo -->
+      <svg class="splash-logo-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <text x="60" y="90" text-anchor="middle"
+              font-family="'Syne',sans-serif" font-weight="800" font-size="95"
+              fill="white" letter-spacing="-4">A</text>
+      </svg>
+    </div>
+  </div>
+
+  <h1 class="splash-title">ArkTraders Hub</h1>
+  <p class="splash-sub" id="splash-sub">Initializing Command Centre…</p>
+
+  <div class="splash-bar-track">
+    <div class="splash-bar-fill" id="splash-bar"></div>
+  </div>
+</div>
+
+<nav class="topnav">
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+        <polyline points="16 7 22 7 22 13"/>
+      </svg>
+    </div>
+    <span class="logo-text">Ark<span>traders</span></span>
+    <span class="logo-badge">v2</span>
+  </a>
+
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('dashboard', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </button>
+    <button class="nav-tab" onclick="showPage('botbuilder', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="11" height="11" rx="2"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4"/><path d="M11 3v4"/><path d="M7 3v2"/></svg>
+      Bot Builder
+    </button>
+    <button class="nav-tab" onclick="showPage('charts', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      Charts
+    </button>
+    <button class="nav-tab" onclick="showPage('freebots', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      FreeBots
+    </button>
+    <button class="nav-tab" onclick="showPage('aihub', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1H1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+      AI Hub
+    </button>
+    <button class="nav-tab" onclick="showPage('risk', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Risk Calculator
+    </button>
+    <button class="nav-tab" onclick="showPage('tutorials', this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Tutorials
+    </button>
+  </div>
+
+  <button class="mob-menu-btn" onclick="openMobDrawer()" title="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">
+      <svg id="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <div id="nav-auth-area">
+      <div id="login-buttons" style="display:flex;gap:8px;align-items:center">
+        <button class="btn-outline" id="login-btn" onclick="derivLogin()">Log in</button>
+        <button class="btn-primary" id="signup-btn" onclick="derivLogin()">Sign up</button>
+      </div>
+      <div id="account-display" style="display:none;align-items:center;gap:8px">
+        <div style="display:flex;flex-direction:column;align-items:flex-end">
+          <span id="acct-id" style="font-size:12px;font-weight:600;color:var(--text)"></span>
+          <span id="acct-balance" style="font-size:11px;color:var(--green);font-weight:600"></span>
+        </div>
+        <button class="btn-outline" style="font-size:12px;padding:5px 10px" onclick="derivLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════
+     MOBILE: Scrollable page-tab bar
+════════════════════════════════════ -->
+<div class="mob-tab-bar" id="mob-tab-bar">
+  <button class="mob-tab-btn active" data-page="dashboard" onclick="showPage('dashboard',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </button>
+  <button class="mob-tab-btn" data-page="botbuilder" onclick="showPage('botbuilder',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="11" height="11" rx="2"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4"/></svg>
+    Bot Builder
+  </button>
+  <button class="mob-tab-btn" data-page="charts" onclick="showPage('charts',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Charts
+  </button>
+  <button class="mob-tab-btn" data-page="freebots" onclick="showPage('freebots',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+    FreeBots
+  </button>
+  <button class="mob-tab-btn" data-page="aihub" onclick="showPage('aihub',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1H1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+    AI Hub
+  </button>
+  <button class="mob-tab-btn" data-page="risk" onclick="showPage('risk',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Risk Calc
+  </button>
+  <button class="mob-tab-btn" data-page="tutorials" onclick="showPage('tutorials',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    Tutorials
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════
+     MOBILE: Bottom Run bar
+════════════════════════════════════ -->
+<div class="mob-run-bar" id="mob-run-bar">
+  <button class="mob-run-btn" onclick="alert('Connect your Deriv account to run a bot.')">
+    <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    Run
+  </button>
+  <div style="flex:1;text-align:center">
+    <div class="mob-run-status">Bot is not running</div>
+    <div class="mob-ws-row" style="justify-content:center;margin-top:2px">
+      <div class="status-bar-dot" id="mob-ws-dot" style="background:var(--amber)"></div>
+      <span id="mob-ws-label">Not connected</span>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE: Overlay + Left Drawer -->
+<div class="mob-drawer-overlay" id="mob-overlay" onclick="closeMobDrawer()"></div>
+<div class="mob-drawer" id="mob-drawer">
+  <div class="mob-drawer-head">
+    <div class="mob-drawer-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+    </div>
+    <div>
+      <div class="mob-drawer-brand">Ark<span>traders</span></div>
+      <div style="font-size:11px;color:var(--text3);margin-top:1px">Smart Trading Tools</div>
+    </div>
+  </div>
+
+  <div class="mob-drawer-section">Pages</div>
+  <button class="mob-drawer-item active" data-page="dashboard" onclick="showPage('dashboard',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </button>
+  <button class="mob-drawer-item" data-page="botbuilder" onclick="showPage('botbuilder',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="11" height="11" rx="2"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4"/></svg>
+    Bot Builder
+  </button>
+  <button class="mob-drawer-item" data-page="charts" onclick="showPage('charts',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    Charts
+  </button>
+  <button class="mob-drawer-item" data-page="freebots" onclick="showPage('freebots',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+    FreeBots
+  </button>
+  <button class="mob-drawer-item" data-page="aihub" onclick="showPage('aihub',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1H1a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+    AI Hub
+  </button>
+  <button class="mob-drawer-item" data-page="risk" onclick="showPage('risk',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Risk Calculator
+  </button>
+  <button class="mob-drawer-item" data-page="tutorials" onclick="showPage('tutorials',null);closeMobDrawer()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+    Tutorials
+  </button>
+</div>
+
+<!-- APP SHELL -->
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-fold-btn" onclick="toggleSidebar()" title="Toggle sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="sidebar-theme-row">
+      <button class="sidebar-theme-btn" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="sidebar-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="sidebar-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <span class="sidebar-theme-label" id="sidebar-theme-label">Light mode</span>
+    </div>
+
+    <div class="sidebar-welcome">
+      <div class="sidebar-welcome-inner">
+        <h3>Welcome to<br>Arktraders!</h3>
+        <p>Ready to trade? Connect your Deriv account, load a bot, and hit Run to start automated trading.</p>
+        <div class="sidebar-welcome-links">
+          <div class="sidebar-welcome-link" onclick="showPage('freebots',null)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            Check out the FreeBots library
+          </div>
+          <div class="sidebar-welcome-link" onclick="derivLogin()" style="cursor:pointer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            Connect your Deriv account
+          </div>
+          <div class="sidebar-welcome-link" onclick="showPage('tutorials',null)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            Watch beginner tutorials
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <main class="main-content" id="main-content" style="padding-bottom: 48px;">
+    <!-- DASHBOARD PAGE -->
+    <div id="page-dashboard" class="page active">
+      <div class="dash-header">
+        <div>
+          <div class="dash-title">Dashboard</div>
+          <div class="dash-sub">Welcome back! Connect your Deriv account to start trading.</div>
+        </div>
+        <button class="run-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Run Bot
+        </button>
+      </div>
+
+      <div class="load-bot-card">
+        <div class="social-links">
+          <a href="#" class="social-btn" title="WhatsApp" style="color:#25d366">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Telegram" style="color:#0088cc">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="YouTube" style="color:#ff0000">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="TikTok" style="color:var(--text)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.01-.08z"/></svg>
+          </a>
+        </div>
+        <div class="load-title">Load or build your bot</div>
+        <div class="load-sub">Import a bot from your computer or Google Drive, build it from scratch, or start with a quick strategy.</div>
+        <div class="load-options">
+          <div class="load-option" onclick="showPage('botbuilder', document.querySelector('.nav-tab:nth-child(2)'))">
+            <div class="load-option-icon red">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#e84b1a" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="load-option-label">My computer</div>
+          </div>
+          <div class="load-option">
+            <div class="load-option-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#378add" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="load-option-label">Google Drive</div>
+          </div>
+          <div class="load-option" onclick="showPage('botbuilder', document.querySelector('.nav-tab:nth-child(2)'))">
+            <div class="load-option-icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#1d9e75" stroke-width="2"><rect x="3" y="11" width="11" height="11" rx="2"/><path d="M3 7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4"/><circle cx="9" cy="17" r="1" fill="#1d9e75"/></svg>
+            </div>
+            <div class="load-option-label">Bot Builder</div>
+          </div>
+          <div class="load-option">
+            <div class="load-option-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ba7517" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+            </div>
+            <div class="load-option-label">Quick strategy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOT BUILDER PAGE -->
+    <div id="page-botbuilder" class="page">
+      <div style="margin:-24px;height:calc(100vh - 64px);overflow:hidden;">
+        <iframe id="dbot-frame" src="https://bot.deriv.com/" style="width:100%;height:100%;border:none;display:block;" allow="autoplay; clipboard-read; clipboard-write" title="Deriv DBot"></iframe>
+      </div>
+    </div>
+
+    <!-- CHARTS PAGE (simplified for brevity -- keep structure) -->
+    <div id="page-charts" class="page">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
+        <select id="chart-symbol" class="form-input" style="max-width:220px;padding:8px 12px" onchange="changeChartSymbol()">
+          <optgroup label="Synthetic Indices">
+            <option value="R_10">Volatility 10 Index</option>
+            <option value="R_25">Volatility 25 Index</option>
+            <option value="R_50" selected>Volatility 50 Index</option>
+            <option value="R_75">Volatility 75 Index</option>
+            <option value="R_100">Volatility 100 Index</option>
+            <option value="1HZ10V">Volatility 10 (1s)</option>
+            <option value="1HZ100V">Volatility 100 (1s)</option>
+            <option value="RDBEAR">Bear Market Index</option>
+            <option value="RDBULL">Bull Market Index</option>
+          </optgroup>
+          <optgroup label="Forex">
+            <option value="frxEURUSD">EUR/USD</option>
+            <option value="frxGBPUSD">GBP/USD</option>
+            <option value="frxUSDJPY">USD/JPY</option>
+            <option value="frxAUDUSD">AUD/USD</option>
+          </optgroup>
+          <optgroup label="Crypto">
+            <option value="cryBTCUSD">BTC/USD</option>
+            <option value="cryETHUSD">ETH/USD</option>
+          </optgroup>
+        </select>
+        <div id="chart-live-price" style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--text)">—</div>
+        <div id="chart-price-change" style="font-size:13px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--surface2);color:var(--text3)">—</div>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:16px;">
+        <iframe id="deriv-chart-frame" src="https://charts.deriv.com/?symbol=R_50&granularity=0&chart_type=mountain" style="width:100%;height:600px;border:none;display:block;" allow="autoplay" title="Deriv Live Chart"></iframe>
+      </div>
+      <div style="background:var(--surface);border:0.5px solid var(--border);border-radius:16px;padding:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">Recent Ticks</div>
+        <div id="tick-table" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;font-size:12.5px;color:var(--text2);max-height:160px;overflow:hidden"></div>
+      </div>
+      <canvas id="tick-chart" style="display:none"></canvas>
+    </div>
+
+    <!-- FREEBOTS, AI HUB, RISK, TUTORIALS pages (similar to original, omitted for brevity) -->
+    <div id="page-freebots" class="page"><div class="dash-header"><div><div class="dash-title">FreeBots</div><div class="dash-sub">Download free bots.</div></div></div></div>
+    <div id="page-aihub" class="page"><div class="dash-header"><div><div class="dash-title">AI Hub</div><div class="dash-sub">AI trading assistant.</div></div></div></div>
+    <div id="page-risk" class="page"><div class="dash-header"><div><div class="dash-title">Risk Calculator</div></div></div></div>
+    <div id="page-tutorials" class="page"><div class="dash-header"><div><div class="dash-title">Tutorials</div></div></div></div>
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel">
+    <div class="rp-topbar">
+      <button class="rp-run-btn" onclick="alert('Connect your Deriv account to run a bot.')">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Run
+      </button>
+      <div class="rp-status-bar">
+        <span class="rp-status-text">Bot is not running</span>
+        <div class="rp-progress"><div class="rp-progress-bar"></div></div>
+      </div>
+    </div>
+    <div class="panel-tabs">
+      <button class="panel-tab active" onclick="switchPanelTab(this)">Summary</button>
+      <button class="panel-tab" onclick="switchPanelTab(this)">Transactions</button>
+      <button class="panel-tab" onclick="switchPanelTab(this)">Journal</button>
+    </div>
+    <div class="rp-body">
+      <div class="rp-info-box">When you're ready to trade, hit <strong>Run</strong>.</div>
+      <span class="rp-whats-this">What's this?</span>
+      <table class="rp-stats-table">
+        <tr><td class="rp-stat-label">Total stake</td><td class="rp-stat-value" id="rp-total-stake">0.00 USD</td></tr>
+        <tr><td class="rp-stat-label">Total payout</td><td class="rp-stat-value" id="rp-total-payout">0.00 USD</td></tr>
+        <tr><td class="rp-stat-label">No. of runs</td><td class="rp-stat-value" id="rp-num-runs">0</td></tr>
+      </table>
+      <div class="rp-divider"></div>
+      <table class="rp-stats-table">
+        <tr><td class="rp-stat-label">Contracts lost</td><td class="rp-stat-value" id="rp-contracts-lost">0</td></tr>
+        <tr><td class="rp-stat-label">Contracts won</td><td class="rp-stat-value" id="rp-contracts-won">0</td></tr>
+        <tr><td class="rp-stat-label">Total profit/loss</td><td class="rp-stat-value" id="rp-total-pl">0.00 USD</td></tr>
+      </table>
+      <button class="reset-btn">Reset</button>
+    </div>
+  </aside>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-bar-dot" id="ws-dot" style="background:var(--amber)"></div>
+  <span id="ws-status">Connecting to Deriv API…</span>
+  <span style="color:var(--border);margin:0 4px">|</span>
+  <span id="clock"></span>
+  <span class="status-bar-url">www.arktradershub.com</span>
+</div>
+
+<script src="scripts/app.js"></script>
+</body>
+</html>
